@@ -22,6 +22,7 @@ jobs:
     user: pnlbwh
     wd: /home
 
+  steps:
   - script: |
       sed -i '%s/pip/# pip/g' Dockerfile
       docker build -t $(imageName):latest -f Dockerfile .
