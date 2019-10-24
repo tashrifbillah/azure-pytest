@@ -23,14 +23,12 @@ jobs:
     wd: /home
 
   - script: |
-        # comment out last line
         sed -i "%s/pip/# pip/g" Dockerfile
         docker build -t $(imageName):latest -f Dockerfile .
     displayName: 'Build a docker image'
     failOnStderr: true
 
   - script: |
-        # uncomment last line
         sed -i "%s/# pip/pip/g" Dockerfile
         docker build -t $(imageName):runTest -f Dockerfile .
     displayName: 'Build using cache'
