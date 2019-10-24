@@ -26,16 +26,12 @@ jobs:
   - script: |
       sed -i 's/pip/# pip/g' Dockerfile
       docker build -t $(imageName):latest -f Dockerfile .
+      sed -i 's/# pip/pip/g' Dockerfile
+      docker build -t $(imageName):runTest -f Dockerfile .   
     displayName: 'Build a docker image'
     failOnStderr: true
 
   - script: |
-      sed -i 's/# pip/pip/g' Dockerfile
-      docker build -t $(imageName):runTest -f Dockerfile .
-    displayName: 'Build using cache'
-
-
-  - script: |
-        docker run --rm $(imageName):runTest "python -V"
+        docker run --rm -ti $(imageName):runTest "python -V"
     displayName: 'Test the cache-built docker image'
     
