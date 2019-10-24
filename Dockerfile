@@ -6,6 +6,7 @@ MAINTAINER Tashrif Billah <tbillah@bwh.harvard.edu>
 ARG USER=pnlbwh
 RUN useradd --no-user-group --create-home --shell /bin/bash $USER
 WORKDIR /home/$USER
+ENV HOME=/home/$USER
 
 COPY startup.sh .
 RUN chmod +x startup.sh
@@ -20,8 +21,9 @@ RUN yum -y install wget which file bzip2 && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
     source miniconda3/bin/activate && \
     cp ~/.bashrc . && \
-    echo "source $PWD/miniconda3/bin/activate" >> .bashrc && \
-    pip install pytest numpy nibabel
+    echo "source $HOME/miniconda3/bin/activate" >> .bashrc && \
+    pip install pytest numpy nibabel && \
+    echo $USER $PWD
     
 
 USER $USER
