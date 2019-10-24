@@ -23,14 +23,14 @@ jobs:
     wd: /home
 
   - script: |
-        sed -i "%s/pip/# pip/g" Dockerfile
-        docker build -t $(imageName):latest -f Dockerfile .
+      sed -i '%s/pip/# pip/g' Dockerfile
+      docker build -t $(imageName):latest -f Dockerfile .
     displayName: 'Build a docker image'
     failOnStderr: true
 
   - script: |
-        sed -i "%s/# pip/pip/g" Dockerfile
-        docker build -t $(imageName):runTest -f Dockerfile .
+      sed -i '%s/# pip/pip/g' Dockerfile
+      docker build -t $(imageName):runTest -f Dockerfile .
     displayName: 'Build using cache'
 
 
