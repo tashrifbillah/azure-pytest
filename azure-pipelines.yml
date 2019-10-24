@@ -1,0 +1,42 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pr:
+- master
+
+jobs:
+- job: azure_docker_integration
+  timeoutInMinutes: 120
+
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  variables:
+    dockerId: tbillah
+    imageName: tbillah/two-step-build
+    user: pnlbwh
+    wd: /home
+
+  - script: |
+        # comment out last line
+        sed -i "%s/pip/# pip/g" Dockerfile
+        docker build -t $(imageName):latest -f Dockerfile .
+    displayName: 'Build a docker image'
+    failOnStderr: true
+
+  - script: |
+        # uncomment last line
+        sed -i "%s/# pip/pip/g" Dockerfile
+        docker build -t $(imageName):runTest -f Dockerfile .
+    displayName: 'Build using cache'
+
+
+  - script: |
+        docker run --rm $(imageName):runTest "python -V"
+    displayName: 'Test the cache-built docker image'
+    
