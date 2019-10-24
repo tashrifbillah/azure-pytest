@@ -7,6 +7,7 @@ ARG USER=pnlbwh
 RUN useradd --no-user-group --create-home --shell /bin/bash $USER
 WORKDIR /home/$USER
 
+COPY startup.sh .
 RUN chmod +x startup.sh
 
 # libraries and commands for FSL
