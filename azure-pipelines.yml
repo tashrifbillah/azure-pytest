@@ -32,6 +32,6 @@ jobs:
     failOnStderr: true
 
   - script: |
-        docker run --rm -ti $(imageName):runTest "python -V"
+        docker run --rm $(imageName):runTest "python -V"
     displayName: 'Test the cache-built docker image'
     

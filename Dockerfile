@@ -27,5 +27,5 @@ RUN echo "Downloading miniconda3 installer" && \
 RUN source ~/.bashrc && pip install pytest numpy nibabel
 
 
-ENTRYPOINT ["/bin/bash","-c","$HOME/startup.sh"]
+ENTRYPOINT ["/home/pnlbwh/startup.sh"]
 
