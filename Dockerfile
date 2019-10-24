@@ -20,7 +20,6 @@ RUN yum -y install wget which file bzip2 && \
     /bin/bash Miniconda3-latest-Linux-x86_64.sh -b -p miniconda3/ && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
     source miniconda3/bin/activate && \
-    cp ~/.bashrc . && \
     echo "source $HOME/miniconda3/bin/activate" >> .bashrc && \
     pip install pytest numpy nibabel && \
     echo $USER $PWD
