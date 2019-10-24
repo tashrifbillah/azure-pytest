@@ -26,10 +26,16 @@ jobs:
   - script: |
       sed -i 's/RUN source/# RUN source/g' Dockerfile
       docker build -t $(imageName):latest -f Dockerfile .
-      sed -i 's/# RUN source/RUN source/g' Dockerfile
-      docker build -t $(imageName):runTest -f Dockerfile .   
     displayName: 'Build a docker image'
     failOnStderr: true
+    
+
+  - script: |
+      sed -i 's/# RUN source/RUN source/g' Dockerfile
+      docker build -t $(imageName):runTest -f Dockerfile .   
+    displayName: 'Build docker image using-cache'
+    failOnStderr: true
+
 
   - script: |
         docker run --rm $(imageName):runTest "python -V"
